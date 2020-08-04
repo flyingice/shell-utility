@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # formula update via Homebrew
-BIN=brew
-if [ -n "$(which $BIN)" ]; then
+if command -v brew 1>/dev/null 2>&1; then
   echo "Fetch the newest version of Homebrew from GitHub..."
   brew update
   echo "Upgrade outdated brews..."
@@ -11,6 +10,6 @@ if [ -n "$(which $BIN)" ]; then
   brew cleanup -s
   echo "Done."
 else
-  echo "$BIN: command not found. Please install $BIN."
+  echo "brew not found. Check https://docs.brew.sh/Installation for installation"
   exit 1
 fi

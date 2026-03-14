@@ -1,0 +1,29 @@
+name: Last 30 Days Trending
+
+on:
+    schedule:
+        - cron: '0 14 * * *' # 07:00 PDT (UTC-7)
+    workflow_dispatch: # Allow manual trigger
+
+jobs:
+    research:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Install Claude Code
+              run: npm install -g @anthropic-ai/claude-code
+
+            - name: Install last30days plugin
+              env:
+                  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+              run: |
+                  claude plugin marketplace add mvanhorn/last30days-skill
+                  claude plugin install last30days@last30days-skill
+
+            - name: Run last30days
+              env:
+                  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+                  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+                  TOPICS: ${{ vars.TOPICS }}
+              run: bash last30days.sh

@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-topics=(
-    "AI"
-    "LLM"
-    "Economy"
-    "Stock"
-    "Crypto"
-    "Politics"
-    "China"
-)
+if [ -z "$TOPICS" ]; then
+    echo "Error: TOPICS is not set" >&2
+    exit 1
+fi
 
+IFS=',' read -ra topics <<< "$TOPICS"
 topic=${topics[$((RANDOM % ${#topics[@]}))]}
 
 if [ -z "$DISCORD_WEBHOOK_URL" ]; then

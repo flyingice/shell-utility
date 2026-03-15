@@ -2,7 +2,7 @@ name: Last 30 Days Trending
 
 on:
     schedule:
-        - cron: '0 14 * * *' # 07:00 PDT (UTC-7)
+        - cron: '37 11 * * *' # 04:37 PDT (UTC-7)
     workflow_dispatch: # Allow manual trigger
 
 jobs:

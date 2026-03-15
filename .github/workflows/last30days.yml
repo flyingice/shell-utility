@@ -24,6 +24,7 @@ jobs:
             - name: Run last30days
               env:
                   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+                  PARALLEL_API_KEY: ${{ secrets.PARALLEL_API_KEY }}
                   DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
                   TOPICS: ${{ vars.TOPICS }}
               run: bash last30days.sh

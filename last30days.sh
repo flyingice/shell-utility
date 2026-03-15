@@ -14,10 +14,9 @@ if [ -z "$DISCORD_WEBHOOK_URL" ]; then
 fi
 
 echo "Researching: $topic"
-result=$(claude -p "/last30days $topic --days=1 --agent --include-web" --output-format text)
+result=$(claude --print "/last30days $topic --days=1 --include-web" --output-format text)
 
-# Truncate everything after the first ---
-result=$(echo "$result" | sed '/^---$/,$d')
+echo "$result"
 
 # Split and send in chunks (Discord has a 2000 char limit per message)
 limit=1800

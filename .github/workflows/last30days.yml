@@ -11,8 +11,10 @@ jobs:
         steps:
             - uses: actions/checkout@v6
 
-            - name: Install Claude Code
-              run: npm install -g @anthropic-ai/claude-code
+            - name: Install dependencies
+              run: |
+                  npm install -g @anthropic-ai/claude-code
+                  python3 -m pip install -U "yt-dlp[default]"
 
             - name: Install last30days plugin
               env:
@@ -24,6 +26,10 @@ jobs:
             - name: Run last30days
               env:
                   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+                  ANTHROPIC_MODEL: claude-haiku-4-5
+                  XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+                  XAI_MODEL_POLICY: pinned
+                  XAI_MODEL_PIN: grok-4-1-fast-non-reasoning
                   PARALLEL_API_KEY: ${{ secrets.PARALLEL_API_KEY }}
                   DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
                   TOPICS: ${{ vars.TOPICS }}
